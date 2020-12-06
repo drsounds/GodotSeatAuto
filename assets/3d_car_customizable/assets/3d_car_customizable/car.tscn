@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/3d_car_customizable/assets/3d_car_customizable/assets/car_model.glb" type="PackedScene" id=1]
+[ext_resource path="res://assets/3d_car_customizable/assets/3d_car_customizable/scripts/car.gd" type="Script" id=2]
+[ext_resource path="res://assets/3d_car_customizable/assets/3d_car_customizable/scripts/Camera.gd" type="Script" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+height = 3.94
+
+[node name="Car" instance=ExtResource( 1 )]
+gravity_scale = 2.0
+continuous_cd = true
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 2 )
+use_camera = false
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.06427e-05, 0.303634, -0.244585 )
+shape = SubResource( 1 )
+
+[node name="rear_left" parent="." index="2"]
+use_as_steering = true
+wheel_radius = 0.32
+wheel_friction_slip = 5.0
+suspension_travel = 1.0
+suspension_stiffness = 35.0
+suspension_max_force = 800.0
+
+[node name="rear_right" parent="." index="3"]
+use_as_steering = true
+wheel_radius = 0.32
+wheel_friction_slip = 5.0
+suspension_travel = 1.0
+suspension_stiffness = 35.0
+suspension_max_force = 800.0
+
+[node name="front_right" parent="." index="4"]
+use_as_traction = true
+wheel_radius = 0.32
+wheel_friction_slip = 5.0
+suspension_travel = 1.0
+suspension_stiffness = 35.0
+suspension_max_force = 800.0
+
+[node name="front_left" parent="." index="5"]
+use_as_traction = true
+wheel_radius = 0.32
+wheel_friction_slip = 5.0
+suspension_travel = 1.0
+suspension_stiffness = 35.0
+suspension_max_force = 800.0
+
+[node name="Camera" type="Camera" parent="." index="6"]
+transform = Transform( -1, 0, -6.04789e-06, 0, 1, 0, 6.04789e-06, 0, -1, 0, 0, -4.73 )
+far = 11111.0
+script = ExtResource( 3 )
+
+[node name="EngineSound" type="AudioStreamPlayer" parent="." index="7"]
+
+[node name="CrashSound" type="AudioStreamPlayer" parent="." index="8"]
+
+[node name="CameraFront" type="Camera" parent="." index="9"]
+transform = Transform( -1, 0, -9.6489e-08, 0, 1, 0, 9.6489e-08, 0, -1, 0, 0.479962, 0.372178 )
+[connection signal="body_entered" from="." to="." method="_on_Car_body_entered"]
